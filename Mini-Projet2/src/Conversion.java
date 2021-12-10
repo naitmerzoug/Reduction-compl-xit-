@@ -28,7 +28,7 @@ public class Conversion {
     }
 
     private void remplirList() {
-        File file= new File("graphCNF");
+        File file= new File("CNF.txt");
         try {
             FileWriter fileWriter = new FileWriter(file);
             BufferedWriter bufferedWriter= new BufferedWriter(fileWriter);
@@ -45,22 +45,22 @@ public class Conversion {
         }
     }
 
-    private String listToString(List<String> strings) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i=0;i<strings.size();i++){
-            stringBuilder.append(strings.get(i));
-            if (i<strings.size()-1){
-                stringBuilder.append(" ");
+    private String listToString(List<String> s) {
+        StringBuilder sBuilder = new StringBuilder();
+        for (int i=0;i<s.size();i++){
+            sBuilder.append(s.get(i));
+            if (i<s.size()-1){
+                sBuilder.append(" ");
             }
         }
-        return stringBuilder.toString();
+        return sBuilder.toString();
     }
 
     public void laCliqueMinKSommets() {
         List<String> list = new ArrayList<>();
         for (int i = 1; i <= k; i++) {
-            for (int v = 0; v < taille; v++) {
-                    list.add(transformation(i, v, taille, true));
+            for (int j = 0; j < taille; j++) {
+                    list.add(transformation(i, j, taille, true));
                 }
                 cnf.add(copie(list));
                 list.clear();
@@ -71,13 +71,15 @@ public class Conversion {
         List<String> list = new ArrayList<>();
         for (int i = 1; i <= k; i++) {
             for (int j = 1; j <= k; j++) {
-                for (int k = 0; k < taille; k++) {
+                int k = 0;
+                while( k < taille) {
                         if (j != i) {
                             list.add(transformation(i, k, taille, false));
                             list.add(transformation(j, k, taille, false));
                             cnf.add(copie(list));
                             list.clear();
                         }
+                        k++;
                     }
                 }
             }
@@ -86,8 +88,10 @@ public class Conversion {
         List<String> list = new ArrayList<>();
         for (int i = 1; i <= k; i++) {
             for (int j = 1; j <= k; j++) {
-                for (int k = 0; k < taille; k++) {
-                    for (int l = 0; l < taille; l++) {
+                int k = 0;
+                while ( k < taille) {
+                    int l = 0;
+                    while (l < taille) {
                         if (j != i && k != l) {
                             if (graphe.matrice[l][k] == 0) {
                                 list.add(transformation(i, k, taille, false));
@@ -96,7 +100,9 @@ public class Conversion {
                                 list.clear();
                             }
                         }
+                        l++;
                     }
+                    k++;
                 }
             }
         }
@@ -104,12 +110,12 @@ public class Conversion {
 
 
 
-    public static String transformation(int i, int v, int n, boolean bool) {
-        String string = String.valueOf((int)(( (i) * Math.pow(n, 1) + (v) * Math.pow(n, 0)) +1 ));
+    public static String transformation(int a, int b, int n, boolean bool) {
+        String s = String.valueOf((int)(( (a) * Math.pow(n, 1) + (b) * Math.pow(n, 0)) +1 ));
         if (!bool) {
-            string = "-" + string;
+            s = "-" + s;
         }
-        return string;
+        return s;
     }
 
     public List copie(List liste) {
@@ -117,6 +123,5 @@ public class Conversion {
         liste1.addAll(liste);
         return liste1;
     }
-
 
 }

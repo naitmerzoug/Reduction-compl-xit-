@@ -1,5 +1,4 @@
 
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,42 +15,41 @@ public class Graphe {
         setNbrsommets(this.matrice);
     }
 
-
     public int[][] readFile(String file) throws IOException {
 
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-        int[][] graph;
-        try (Scanner scanner = new Scanner(bufferedReader)) {
+        BufferedReader buf = new BufferedReader(new FileReader(file));
+        int[][] graphe;
+        try (Scanner scan = new Scanner(buf)) {
             nbrsommets = 10;
-            graph = new int[nbrsommets][nbrsommets];
+            graphe = new int[nbrsommets][nbrsommets];
 
-            while (scanner.hasNextLine()) {
-                for (int i = 0; i < graph.length; i++) {
-                    String[] line = scanner.nextLine().trim().split(" ");
+            while (scan.hasNextLine()) {
+                for (int i = 0; i < graphe.length; i++) {
+                    String[] line = scan.nextLine().trim().split(" ");
                     for (int j = 0; j < line.length; j++) {
-                        graph[i][j] = Integer.parseInt(line[j]);
+                        graphe[i][j] = Integer.parseInt(line[j]);
                     }
                 }
             }
         }
-        return graph;
+        return graphe;
     }
     public void affichage() {
         for (int[] ints : matrice) {
-            List<Integer> integers = new ArrayList<>();
+            List<Integer> entiers = new ArrayList<>();
             for (int anInt : ints) {
-                integers.add(anInt);
+                entiers.add(anInt);
             }
-            System.out.println(integers);
+            System.out.println(entiers);
         }
 
     }
 
-    public void setGraph(int[][] graph) {
-        this.matrice = graph;
+    public void setGraph(int[][] graphe) {
+        this.matrice = graphe;
     }
 
-    public void setNbrsommets(int [][] graph){
-        this.nbrsommets = graph.length;
+    public void setNbrsommets(int [][] graphe){
+        this.nbrsommets = graphe.length;
     }
 }
