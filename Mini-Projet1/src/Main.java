@@ -8,8 +8,9 @@ public class Main
 {
 
     public static void main(String[] args) throws IOException {
-        String sat1 = "main/src/MiniProjet1/sat.txt";
-        String sol1 = "main/src/MiniProjet1/sol.txt";
+
+        String sat1 =  "Mini-Projet1/src/sat.txt";
+        String sol1 =  "Mini-Projet1/src/sol.txt";
 
         BufferedReader bufferedReader1;
         BufferedReader bufferedReader2;
